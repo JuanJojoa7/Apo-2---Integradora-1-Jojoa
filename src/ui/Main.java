@@ -72,19 +72,19 @@ public class Main {
 	}
 
 	public void init(){
-		System.out.println("Dime que la cantidad de filas que deseas para el tablero: ");
+		System.out.print("\nDime que la cantidad de filas que deseas para el tablero: ");
 		int rows = reader.nextInt();
 		reader.nextLine();
 
-		System.out.println("Dime la cantidad de columnas que deseas para el tablero: ");
+		System.out.print("\nDime la cantidad de columnas que deseas para el tablero: ");
 		int columns = reader.nextInt();
 		reader.nextLine();
 
-		System.out.println("Dime cuantos toboganes deseas para este juego: ");
+		System.out.print("\nDime cuantos toboganes deseas para este juego: ");
 		int snakes = reader.nextInt();
 		reader.nextLine();
 
-		System.out.println("Dime cuantas escaleras deseas: ");
+		System.out.print("\nDime cuantas escaleras deseas: ");
 		int ladders = reader.nextInt();
 		reader.nextLine();
 
