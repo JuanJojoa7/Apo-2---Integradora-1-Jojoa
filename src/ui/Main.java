@@ -89,7 +89,13 @@ public class Main {
 		reader.nextLine();
 
 		controller.createBoard(rows, columns, snakes, ladders);
-		System.out.println("Cargando jugadores..........");
+		System.out.println("Elige uno de estos simbolos !#$&@"+
+		"1. !\n"+
+		"2. #\n"+
+		"3. $"+
+		"4. &\n"+
+		"5. @\n"+
+		"Opcion: ");
 		createPlayers(3,0);
 	}
 
