@@ -6,6 +6,9 @@ import java.util.Random;
 
 
 public class Board {
+
+    private Slot head;
+    
     private int sizeX;
 
     private int sizeY;
@@ -252,6 +255,86 @@ public class Board {
         return findNodeL2(current.getNext(), ladder, counter);
     }
 
+
+    public Slot getHead(){
+        return head;
+    }
+
+    public void setHead(Slot head) {
+        this.head = head;
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public void setSizeX(int sizeX) {
+        this.sizeX = sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
+
+    public void setSizeY(int sizeY) {
+        this.sizeY = sizeY;
+    }
+
+    public int getSnakeNum() {
+        return snakeNum;
+    }
+
+    public void setSnakeNum(int snakeNum) {
+        this.snakeNum = snakeNum;
+    }
+
+    public int getLaddersNum() {
+        return laddersNum;
+    }
+
+    public void setLaddersNum(int laddersNum) {
+        this.laddersNum = laddersNum;
+    }
+
+    public Node getStart() {
+        return start;
+    }
+
+    public void setStart(Node start) {
+        this.start = start;
+    }
+
+    public Node getEnd() {
+        return end;
+    }
+
+    public void setEnd(Node end) {
+        this.end = end;
+    }
+
+    public positionListS getListS() {
+        return listS;
+    }
+
+    public void setListS(positionListS listS) {
+        this.listS = listS;
+    }
+
+    public positionListL getListL() {
+        return listL;
+    }
+
+    public void setListL(positionListL listL) {
+        this.listL = listL;
+    }
+
+    public Random getRand() {
+        return rand;
+    }
+
+    public void setRand(Random rand) {
+        this.rand = rand;
+    }
     
 
 }

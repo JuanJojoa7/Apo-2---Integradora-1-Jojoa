@@ -9,6 +9,8 @@ public class GameController {
     private double seconds;
     private boolean starter;
     private Thread timer;
+    private Board board;
+    private PlayerLST players;
 
     public void inGame(int option, int player){
 
@@ -47,12 +49,32 @@ public class GameController {
         timer.interrupt();
     }
     
-    //public String createPlayer(String symbol){
-      //  if(symbolPlayer(symbol.charAt(0),0)){
-        //    Player newPlayer = new symbolPlayer(symbol.charAt(0));
-          //  newPlayer.set
-        //}
-    //}
+    public String createPlayer(String symbol){
+        if(symbolPlayer(symbol.charAt(0),0)){
+            Player newPlayer = new Player(symbol.charAt(0));
+            newPlayer.setCurrentPosition(board.getHead());
+            players.addPlayer(newPlayer);
+            return "Player created";
+        }else{
+            return "wtf bro?";
+        }
+    }
 
+    public boolean symbolPlayer(char symbol, int i){
+        String symbols = "!#$&@";
+        if(i == 9){
+            return false;
+        }else{
+            if(symbols.charAt(i)==symbol){
+                return !players.symbolPlayer(symbols.charAt(i));
+            }else{
+                return symbolPlayer(symbol, ++i);
+            }
+        }
+
+    }
+
+
+    
     
 }

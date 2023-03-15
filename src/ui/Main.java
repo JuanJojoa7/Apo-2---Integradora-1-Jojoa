@@ -72,23 +72,25 @@ public class Main {
 	}
 
 	public void init(){
-		System.out.print("\nDime que la cantidad de filas que deseas para el tablero: ");
+		System.out.println("Dime que la cantidad de filas que deseas para el tablero: ");
 		int rows = reader.nextInt();
 		reader.nextLine();
 
-		System.out.print("\nDime la cantidad de columnas que deseas para el tablero: ");
+		System.out.println("Dime la cantidad de columnas que deseas para el tablero: ");
 		int columns = reader.nextInt();
 		reader.nextLine();
 
-		System.out.print("\nDime cuantos toboganes deseas para este juego: ");
+		System.out.println("Dime cuantos toboganes deseas para este juego: ");
 		int snakes = reader.nextInt();
 		reader.nextLine();
 
-		System.out.print("\nDime cuantas escaleras deseas: ");
+		System.out.println("Dime cuantas escaleras deseas: ");
 		int ladders = reader.nextInt();
 		reader.nextLine();
 
 		controller.createBoard(rows, columns, snakes, ladders);
+		System.out.println("Cargando jugadores..........");
+		createPlayers(3,0);
 	}
 
 	public int playMenu(int player, int numPlayers){
@@ -106,6 +108,18 @@ public class Main {
 			return playMenu(player, numPlayers);
 		}
 		return playMenu(player+1, numPlayers);
+	}
+
+	public void createPlayers(int players, int counter){
+		if(counter < players){
+			System.out.println("Elige un simbolo que te represente"+(counter+1)+"!#$&@");
+			if(controller.createPlayer(reader.nextLine()).equals("Jugador creado")){
+				createPlayers(players, ++counter);
+			}else{
+				System.out.println("Wey no lees, simbolo invalido");
+				createPlayers(players, counter);
+			}
+		}
 	}
 
 }
