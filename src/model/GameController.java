@@ -50,6 +50,14 @@ public class GameController {
     }
     
     public String createPlayer(String symbol){
+        if(symbolPlayer(symbol.charAt(0),0)){
+            Player newPlayer = new Player(symbol.charAt(0));
+            newPlayer.setCurrentPosition(board.getHead());
+            players.addPlayer(newPlayer);
+            return "\nJugador creado con exito";
+        }else{
+            return "wtf bro?";
+        }
         String  msj = "";
         return msj;
     }
