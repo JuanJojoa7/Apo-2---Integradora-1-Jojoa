@@ -32,22 +32,6 @@ public class PlayerLST {
         }
     }
 
-    public boolean symbolPlayer(char symbol){
-        return symbolPlayer(symbol, head, 0);
-    }
-
-    public boolean symbolPlayer(char symbol, Player current, int i){
-        if(head == null){
-            return false;
-        }
-        if(i == 3){
-            return false;
-        }
-        if(current.getId()==symbol){
-            return true;
-        }else{
-            return symbolPlayer(symbol, (Player)current.getNext(), i++);
-        }
-    }
+    
    
 }

@@ -58,23 +58,8 @@ public class GameController {
         }else{
             return "wtf bro?";
         }
+        String  msj = "";
+        return msj;
     }
-
-    public boolean symbolPlayer(char symbol, int i){
-        String symbols = "!#$&@";
-        if(i == 9){
-            return false;
-        }else{
-            if(symbols.charAt(i)==symbol){
-                return !players.symbolPlayer(symbols.charAt(i));
-            }else{
-                return symbolPlayer(symbol, ++i);
-            }
-        }
-
-    }
-
-
-    
     
 }
