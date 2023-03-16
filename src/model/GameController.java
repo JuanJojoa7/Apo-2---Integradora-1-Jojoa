@@ -54,7 +54,7 @@ public class GameController {
             Player newPlayer = new Player(symbol.charAt(0));
             newPlayer.setCurrentPosition(board.getHead());
             players.addPlayer(newPlayer);
-            return "Player created";
+            return "\nJugador creado con exito";
         }else{
             return "wtf bro?";
         }
