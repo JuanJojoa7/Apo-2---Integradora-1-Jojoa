@@ -4,6 +4,8 @@ public class Node{
 
 	private int id;
     private String display;
+
+	private Node savedNext;
 	private Node next;
 	private Node previous;
 
@@ -13,6 +15,7 @@ public class Node{
         this.display = "[" + value + "]" ;
 		this.next = null;
 		this.previous = null;
+		this.savedNext = null;
 	}
 
 	public String getDisplay() {return display;}
@@ -33,6 +36,9 @@ public class Node{
 
 	public void setPrevious(Node previous) {this.previous = previous;}
 
+	public Node getSavedNext() {return savedNext;}
+
+	public void setSavedNext(Node savedNext) {this.savedNext = savedNext;}
 
 	@Override
 	public String toString(){
