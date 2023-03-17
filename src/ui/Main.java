@@ -91,6 +91,7 @@ public class Main {
 		controller.createBoard(rows, columns, snakes, ladders);
 		System.out.println("Cargando jugadores..........");
 		createPlayers(3,0);
+		controller.printBoard(columns);
 	}
 
 	public int playMenu(int player, int numPlayers){
@@ -113,7 +114,8 @@ public class Main {
 	public void createPlayers(int players, int counter){
 		if(counter < players){
 			System.out.println("Elige un simbolo que te represente"+(counter+1)+"!#$&@");
-			if(controller.createPlayer(reader.nextLine()).equals("Jugador creado")){
+			char icon = reader.next().charAt(0);
+			if(controller.createPlayer(icon).equals("Jugador creado")){
 				createPlayers(players, ++counter);
 			}else{
 				System.out.println("Wey no lees, simbolo invalido");
