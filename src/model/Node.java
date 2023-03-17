@@ -10,7 +10,7 @@ public class Node{
 	public Node(int value) {
 		super();
 		this.id = value;
-        this.display = "]" + value + "[" ;
+        this.display = "[" + value + "]" ;
 		this.next = null;
 		this.previous = null;
 	}

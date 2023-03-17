@@ -23,6 +23,13 @@ public class Board {
 
     private int LID;
 
+    private String SList;
+
+    private int LadderPos=0;
+
+    private char Letter;
+
+
    private positionListS listS = new positionListS();
 
    private positionListL listL = new positionListL();
@@ -36,12 +43,13 @@ public class Board {
         this.snakeNum = snakes;
         this.laddersNum = ladders;
         this.LID = 1;
+        this.SList = "abcdefghijklmnopqrstuvwxyz";
         this.start = null;
         createSPosition((snakes*2),(columnas*rows), 0);
         createLPosition((ladders*2), (columnas*rows), 0);
         createBoard((columnas*rows), 1);
         connectNodes((snakes*2), (ladders*2));
-        boardPrint(columnas);
+        boardPrint(columnas, 0);
     }
 
     private void createBoard(int boardLimit, int boardNodeCounter) {
@@ -136,38 +144,58 @@ public class Board {
         }
     }
 
-    private void boardPrint(int columns){
-        boardPrint(end, columns, columns, "");
-        boardPrintSN(end, columns, columns, "");
+    private void boardPrint(int columns, int answer){
+        switch (answer){
+            case 1:
+                if(columns%2==0){
+                    boardPrint(end, columns, columns, "", false);
+                } else {
+                    boardPrint(end, columns, columns, "", true);
+                }
+
+                break;
+            case 0:
+                if(columns%2==0){
+                    boardPrintSN(end, columns, columns, "", false);
+                } else {
+                    boardPrintSN(end, columns, columns, "", true);
+                }
+                break;
+        }
         return;
     }
-    private void boardPrint(Node current, int counter, int columns, String print){
+    private void boardPrint(Node current, int counter, int columns, String print, boolean condition){
 
         counter-=1;
         if(counter<0){
-            String invertedString = new StringBuilder(print).reverse().toString();
-            System.out.println(invertedString);
+            System.out.println(print);
             print="";
             counter=columns-1;
         }
         if(current==null){
             return;
         }
+        if(counter==columns-1){
+            condition=!condition;
+        }
 
-        print += current.getDisplay()+" ";
+        if(condition==false){
+            print = current.getDisplay()+" "+print;
+        } else {
+            print += current.getDisplay()+" ";
+        }
 
-        boardPrint(current.getPrevious(), counter, columns, print);
+        boardPrint(current.getPrevious(), counter, columns, print, condition);
         if(current==start){
             return;
         }
     }
 
-    private void boardPrintSN(Node current, int counter, int columns, String print){
+    private void boardPrintSN(Node current, int counter, int columns, String print, boolean condition){
 
         counter-=1;
         if(counter<0){
-            String invertedString = new StringBuilder(print).reverse().toString();
-            System.out.println(invertedString);
+            System.out.println(print);
             print="";
             counter=columns-1;
         }
@@ -175,15 +203,29 @@ public class Board {
             return;
         }
 
-        if(current instanceof Snakes){
-            print += ((Snakes) current).getDisplaySN()+" ";
-        } else if (current instanceof Ladders){
-            print += ((Ladders) current).getDisplaySN()+" ";
-        } else {
-            print += "] [" + " ";
+        if(counter==columns-1){
+            condition=!condition;
         }
 
-        boardPrintSN(current.getPrevious(), counter, columns, print);
+        if(condition==false){
+            if(current instanceof Snakes){
+                print = ((Snakes) current).getDisplaySN()+" "+print;
+            } else if (current instanceof Ladders){
+                print = ((Ladders) current).getDisplaySN()+" "+print;
+            } else {
+                print += "[ ]" + " ";
+            }
+        } else {
+            if(current instanceof Snakes){
+                print += ((Snakes) current).getDisplaySN()+" ";
+            } else if (current instanceof Ladders){
+                print += ((Ladders) current).getDisplaySN()+" ";
+            } else {
+                print += "[ ]" + " ";
+            }
+        }
+
+        boardPrintSN(current.getPrevious(), counter, columns, print, condition);
         if(current==start){
             return;
         }
@@ -206,8 +248,11 @@ public class Board {
         }
         if(current instanceof Snakes){
             if(((Snakes) current).isConnected()==false){
+                Letter = SList.charAt(LadderPos);
                 ((Snakes) current).setConnect(findNodeS2(current.getNext(), random(amount+1), 1));
                 ((Snakes) current).setConnected(true);
+                ((Snakes) current).setDisplaySN("["+ Letter +"]");
+                LadderPos+=1;
                 findNodeS(current.getPrevious(), amount-2);
             }
         }
@@ -229,7 +274,7 @@ public class Board {
             if(((Ladders) current).isConnected()==false){
                 ((Ladders) current).setConnect(findNodeL2(current.getNext(), random(amount+1), 1));
                 ((Ladders) current).setConnected(true);
-                ((Ladders) current).setDisplaySN("]"+LID+"[");
+                ((Ladders) current).setDisplaySN("["+LID+"]");
                 LID+=1;
                 findNodeL(current.getNext(), amount-2);
             }
@@ -258,9 +303,12 @@ public class Board {
             if(((Snakes) current).isConnected()==false){
                 if(counter == snake){
                     ((Snakes) current).setConnected(true);
+                    ((Snakes) current).setDisplaySN("["+Letter+"]");
+                    System.out.println(Letter);
                     return ((Snakes) current);
+                } else{
+                    return findNodeS2(current.getPrevious(), snake, counter+1);
                 }
-                return findNodeS2(current.getPrevious(), snake, counter+1);
             }
         }
         return findNodeS2(current.getPrevious(), snake, counter);
@@ -277,7 +325,7 @@ public class Board {
             if(((Ladders) current).isConnected()==false){
                 if(counter == ladder){
                     ((Ladders) current).setConnected(true);
-                    ((Ladders) current).setDisplaySN("]"+LID+"[");
+                    ((Ladders) current).setDisplaySN("["+LID+"]");
                     return ((Ladders) current);
                 }
                 return findNodeL2(current.getNext(), ladder, counter+1);
