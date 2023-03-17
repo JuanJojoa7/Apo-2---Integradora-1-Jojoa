@@ -6,14 +6,14 @@ public class Player extends Node {
         
     }
 
-    private String icon;
+    private char icon;
     private int score;
     private Slot currentPosition;
     
 
-    public String getIcon() {return icon;}
+    public char getIcon() {return icon;}
 
-    public void setIcon(String icon) {this.icon = icon;}
+    public void setIcon(char icon) {this.icon = icon;}
 
     public int getScore() {return score;}
 

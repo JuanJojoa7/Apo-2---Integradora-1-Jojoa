@@ -36,9 +36,9 @@ public class Main {
 
 	public void printMenu(){
 			System.out.print(
-                "\n<<<<< Bienvenido al juego de Escaleras y Serpientes >>>>>\n"+	
+                "\n<<<<< Welcome to the Game >>>>>\n"+	
                 "1. Jugar\n"+
-				"0. Salir. \n"+
+				"0. Exit. \n"+
 				"Opcion: ");  
 	}
 
@@ -72,24 +72,24 @@ public class Main {
 	}
 
 	public void init(){
-		System.out.print("\nDime que la cantidad de filas que deseas para el tablero: ");
+		System.out.println("Dime que la cantidad de filas que deseas para el tablero: ");
 		int rows = reader.nextInt();
 		reader.nextLine();
 
-		System.out.print("\nDime la cantidad de columnas que deseas para el tablero: ");
+		System.out.println("Dime la cantidad de columnas que deseas para el tablero: ");
 		int columns = reader.nextInt();
 		reader.nextLine();
 
-		System.out.print("\nDime cuantos toboganes deseas para este juego: ");
+		System.out.println("Dime cuantos toboganes deseas para este juego: ");
 		int snakes = reader.nextInt();
 		reader.nextLine();
 
-		System.out.print("\nDime cuantas escaleras deseas: ");
+		System.out.println("Dime cuantas escaleras deseas: ");
 		int ladders = reader.nextInt();
 		reader.nextLine();
 
 		controller.createBoard(rows, columns, snakes, ladders);
-		System.out.print("\nCargando jugadores..........");
+		System.out.println("Cargando jugadores..........");
 		createPlayers(3,0);
 	}
 
@@ -97,13 +97,11 @@ public class Main {
 		if(player>numPlayers-1){
 			player=0;
 		}
-
 		System.out.println("Jugador,"); //Aqui se pone el +Jugador
 		System.out.print("\nElije una opcion\n"+
 				"1. Tirar dado\n"+
 				"2. Ver escaleras y serpientes\n"+
 				"Opcion: ");
-
 		int option = reader.nextInt();
 		controller.inGame(option, player);
 		if(option==2){
@@ -114,12 +112,11 @@ public class Main {
 
 	public void createPlayers(int players, int counter){
 		if(counter < players){
-			System.out.println("\nElige un simbolo que te represente de las siguientes opciones querido jugador: " +(counter+1)+ " \nFichas disponibles: !#$&@.");
-			System.out.print("Opcion: ");
-			if(controller.createPlayer(reader.nextLine()).equals("\nJugador creado.")){
+			System.out.println("Elige un simbolo que te represente"+(counter+1)+"!#$&@");
+			if(controller.createPlayer(reader.nextLine()).equals("Jugador creado")){
 				createPlayers(players, ++counter);
 			}else{
-				System.out.println("\nLo sentimos has introducido un simbolo invalido , puedes intentar con: !#$&@.");
+				System.out.println("Wey no lees, simbolo invalido");
 				createPlayers(players, counter);
 			}
 		}

@@ -5,7 +5,6 @@ import java.util.Random;
 public class GameController {
 
     Random rand = new Random();
-    int diceRoll = rand.nextInt(6)+1;
     private double seconds;
     private boolean starter;
     private Thread timer;
@@ -18,14 +17,14 @@ public class GameController {
 
     public GameController(){
         this.starter = false;
+        this.players = new PlayerLST();
+        this.seconds = 0;
 
 
     }
 
     public void createBoard(int rows, int columns, int snakes, int ladders){
-        Board board = new Board(rows, columns, snakes, ladders);
-
-        return;
+        this.board = new Board(rows, columns, snakes, ladders);
     }
 
     public void Timer(){
@@ -54,12 +53,27 @@ public class GameController {
             Player newPlayer = new Player(symbol.charAt(0));
             newPlayer.setCurrentPosition(board.getHead());
             players.addPlayer(newPlayer);
-            return "\nJugador creado con exito";
+            return "Jugador creado";
         }else{
             return "wtf bro?";
         }
-        String  msj = "";
-        return msj;
     }
+
+    public boolean symbolPlayer(char symbol, int i){
+        String symbols = "!#$&@";
+        if(i >= 5){
+            return false;
+        }else{
+            if(symbols.charAt(i)==symbol){
+                return !players.symbolPlayer(symbols.charAt(i));
+            }else{
+                return symbolPlayer(symbol, ++i);
+            }
+        }
+
+    }
+
+
+    
     
 }
