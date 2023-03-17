@@ -26,7 +26,7 @@ public class PlayerLST {
     public void addPlayer(Player node, Player current){
         if(current.getNext()==head){
             current.setNext(node);
-            current.getNext().setNext(head);
+            node.setNext(head);
         }else{
             addPlayer(node, (Player) current.getNext());
         }
@@ -46,7 +46,7 @@ public class PlayerLST {
         if(current.getId()==symbol){
             return true;
         }else{
-            return symbolPlayer(symbol, (Player)current.getNext(), i++);
+            return symbolPlayer(symbol, (Player)current.getNext(), ++i);
         }
     }
    
