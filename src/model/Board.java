@@ -21,6 +21,8 @@ public class Board {
 
     private Node end;
 
+    private int LID;
+
    private positionListS listS = new positionListS();
 
    private positionListL listL = new positionListL();
@@ -33,6 +35,7 @@ public class Board {
         this.sizeY = rows;
         this.snakeNum = snakes;
         this.laddersNum = ladders;
+        this.LID = 1;
         this.start = null;
         createSPosition((snakes*2),(columnas*rows), 0);
         createLPosition((ladders*2), (columnas*rows), 0);
@@ -135,32 +138,57 @@ public class Board {
 
     private void boardPrint(int columns){
         boardPrint(end, columns, columns, "");
+        boardPrintSN(end, columns, columns, "");
         return;
     }
     private void boardPrint(Node current, int counter, int columns, String print){
 
         counter-=1;
         if(counter<0){
-            System.out.println(print);
+            String invertedString = new StringBuilder(print).reverse().toString();
+            System.out.println(invertedString);
             print="";
             counter=columns-1;
         }
         if(current==null){
             return;
         }
-        if(current instanceof Snakes){
-            print += current.getDisplay()+" ";
-        } else if (current instanceof Ladders){
-            print += current.getDisplay()+" ";
-        } else {
-            print += current.getDisplay()+" ";
-        }
+
+        print += current.getDisplay()+" ";
 
         boardPrint(current.getPrevious(), counter, columns, print);
         if(current==start){
             return;
         }
     }
+
+    private void boardPrintSN(Node current, int counter, int columns, String print){
+
+        counter-=1;
+        if(counter<0){
+            String invertedString = new StringBuilder(print).reverse().toString();
+            System.out.println(invertedString);
+            print="";
+            counter=columns-1;
+        }
+        if(current==null){
+            return;
+        }
+
+        if(current instanceof Snakes){
+            print += ((Snakes) current).getDisplaySN()+" ";
+        } else if (current instanceof Ladders){
+            print += ((Ladders) current).getDisplaySN()+" ";
+        } else {
+            print += "] [" + " ";
+        }
+
+        boardPrintSN(current.getPrevious(), counter, columns, print);
+        if(current==start){
+            return;
+        }
+    }
+
 
     private void connectNodes(int snakes, int ladders){
         findNodeS(end, snakes);
@@ -201,6 +229,8 @@ public class Board {
             if(((Ladders) current).isConnected()==false){
                 ((Ladders) current).setConnect(findNodeL2(current.getNext(), random(amount+1), 1));
                 ((Ladders) current).setConnected(true);
+                ((Ladders) current).setDisplaySN("]"+LID+"[");
+                LID+=1;
                 findNodeL(current.getNext(), amount-2);
             }
         }
@@ -247,6 +277,7 @@ public class Board {
             if(((Ladders) current).isConnected()==false){
                 if(counter == ladder){
                     ((Ladders) current).setConnected(true);
+                    ((Ladders) current).setDisplaySN("]"+LID+"[");
                     return ((Ladders) current);
                 }
                 return findNodeL2(current.getNext(), ladder, counter+1);
@@ -335,6 +366,5 @@ public class Board {
     public void setRand(Random rand) {
         this.rand = rand;
     }
-    
 
 }

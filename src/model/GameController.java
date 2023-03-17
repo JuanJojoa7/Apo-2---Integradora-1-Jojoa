@@ -65,15 +65,21 @@ public class GameController {
             return false;
         }else{
             if(symbols.charAt(i)==symbol){
-                return !players.symbolPlayer(symbols.charAt(i));
+                return players.symbolPlayer(symbols.charAt(i));
             }else{
                 return symbolPlayer(symbol, ++i);
             }
         }
-
     }
 
-
-    
-    
+    public int diceRoll(){
+        Random rand = new Random();
+        int upperbound = 6;
+        int int_random = rand.nextInt(upperbound);
+        if(int_random!=0){
+            return int_random;
+        } else {
+            return diceRoll();
+        }
+    }
 }
