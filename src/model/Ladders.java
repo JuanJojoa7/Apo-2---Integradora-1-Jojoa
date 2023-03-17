@@ -2,14 +2,15 @@ package model;
 
 import jdk.dynalink.NoSuchDynamicMethodException;
 public class Ladders extends Node{
-    private String display;
+    private String displaySN;
+
     private Node connect;
 
     private boolean connected;
 
     public Ladders(int value) {
         super(value);
-        this.display = "[L]";
+        this.displaySN = "] [";
         this.connected = false;
     }
 
@@ -17,11 +18,12 @@ public class Ladders extends Node{
 
     public void setConnect(Node connect) {this.connect = connect;}
 
-    public String getDisplay() {return display;}
+    public String getDisplaySN() {return displaySN;}
 
-    public void setDisplay(String display) {this.display = display;}
+    public void setDisplaySN(String displaySN) {this.displaySN = displaySN;}
 
     public boolean isConnected() {return connected;}
 
     public void setConnected(boolean connected) {this.connected = connected;}
+
 }

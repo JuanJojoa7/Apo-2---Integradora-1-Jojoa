@@ -4,15 +4,13 @@ public class Node{
 
 	private int id;
     private String display;
-
-	private Node saved;
 	private Node next;
 	private Node previous;
 
 	public Node(int value) {
 		super();
 		this.id = value;
-        this.display = "[" + value + "]" ;
+        this.display = "]" + value + "[" ;
 		this.next = null;
 		this.previous = null;
 	}
