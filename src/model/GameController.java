@@ -1,7 +1,5 @@
 package model;
 import java.util.Random;
-
-
 public class GameController {
 
     Random rand = new Random();
@@ -9,15 +7,23 @@ public class GameController {
     private boolean starter;
     private Thread timer;
     private Board board;
-    private PlayerLST players;
 
     public void inGame(int option, int player){
 
+		switch(option){
+
+			case 1-> diceRoll();
+
+			case 2-> board.boardPrint(board.getSizeX(),1);
+						
+			default-> System.out.println("\nHas seleccionado una opcion invalida, intenta nuevamente.");
+		}
+
     }
+
 
     public GameController(){
         this.starter = false;
-        this.players = new PlayerLST();
         this.seconds = 0;
 
 
@@ -76,19 +82,6 @@ public class GameController {
             return current;
         }
     }
-
-   /* public boolean symbolPlayer(char symbol, int i){
-        String symbols = "!#$&@";
-        if(i >= 5){
-            return false;
-        }else{
-            if(symbols.charAt(i)==symbol){
-                return symbolPlayer(symbols.charAt(i));
-            }else{
-                return symbolPlayer(symbol, ++i);
-            }
-        }
-    }*/
 
     public int diceRoll(){
         Random rand = new Random();

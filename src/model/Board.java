@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-
 public class Board {
     
     private int sizeX;
