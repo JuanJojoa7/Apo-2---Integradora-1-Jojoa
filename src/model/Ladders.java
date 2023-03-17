@@ -10,7 +10,7 @@ public class Ladders extends Node{
 
     public Ladders(int value) {
         super(value);
-        this.displaySN = "] [";
+        this.displaySN = "[ ]";
         this.connected = false;
     }
 

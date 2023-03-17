@@ -10,7 +10,7 @@ public class Snakes extends Node{
 
     public Snakes(int value) {
         super(value);
-        this.displaySN = "] [";
+        this.displaySN = "[ ]";
         this.connected = false;
     }
 
