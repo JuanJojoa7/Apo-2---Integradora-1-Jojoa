@@ -1,7 +1,5 @@
 package model;
 import java.util.Random;
-
-
 public class GameController {
 
     Random rand = new Random();
@@ -9,17 +7,25 @@ public class GameController {
     private boolean starter;
     private Thread timer;
     private Board board;
-    private PlayerLST players;
+    boolean finishGame;
 
     public void inGame(int option, int player){
+
+		switch(option){
+
+			case 1-> diceRoll();
+
+			case 2-> board.boardPrint(board.getSizeX(),1);
+						
+			default-> System.out.println("\nHas seleccionado una opcion invalida, intenta nuevamente.");
+		}
 
     }
 
     public GameController(){
         this.starter = false;
-        this.players = new PlayerLST();
         this.seconds = 0;
-
+        this.finishGame = false;
 
     }
 
@@ -51,6 +57,10 @@ public class GameController {
         starter = false;
         timer.interrupt();
     }
+
+    public boolean gameFinish(){
+        return finishGame;
+    }
     
     public String createPlayer(char symbol){
         if(symbolPlayer(symbol)==false){
@@ -76,19 +86,6 @@ public class GameController {
             return current;
         }
     }
-
-   /* public boolean symbolPlayer(char symbol, int i){
-        String symbols = "!#$&@";
-        if(i >= 5){
-            return false;
-        }else{
-            if(symbols.charAt(i)==symbol){
-                return symbolPlayer(symbols.charAt(i));
-            }else{
-                return symbolPlayer(symbol, ++i);
-            }
-        }
-    }*/
 
     public int diceRoll(){
         Random rand = new Random();
@@ -121,5 +118,33 @@ public class GameController {
         } else {
             return false;
         }
+    }
+
+
+    private Node movePlayer(Node node, int steps){
+       if(node == board.getStart() && steps <= 0){
+            return node;
+        }
+        if(node == board.getEnd()){
+            return node;
+        }
+        if(steps ==0){
+           if(board.getLinkId() == null){
+                return node;
+            }else{
+                if(node.getSteps() == 0){
+                    return node;
+                }else{
+                    return movePlayer(node, node.getSteps());
+                }
+            }
+        }
+        
+        if(steps > 0){
+            return movePlayer((Node)node.getPrevious(), ++steps);
+        }else{
+            return movePlayer((Node)node.getNext(), --steps);
+        }
+        
     }
 }

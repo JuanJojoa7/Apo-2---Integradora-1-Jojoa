@@ -47,9 +47,9 @@ public class Main {
 			switch(option){
 				case 1-> init();
 
-				case 0-> System.out.println("Exit program.");
+				case 0-> System.out.print("\nHasta luego, esperamos verte nuevamente.");
 						
-				default-> System.out.println("Invalid Option");
+				default-> System.out.print("\nLo sentimos has introducido una opcion invalida, intenta nuevamente.");
 			}
 		}
 	
@@ -71,41 +71,61 @@ public class Main {
 		return option; 
 	}
 
+	public int validateIntegerOption2(){
+		int option = 0; 
+
+		if(reader.hasNextInt()){
+			option = reader.nextInt(); 
+		}
+		else{
+			reader.nextLine(); 
+			option = -1; 
+		}
+
+		return option; 
+	}
+
 	public void init(){
-		System.out.println("Dime que la cantidad de filas que deseas para el tablero: ");
+		System.out.print("\nDime que la cantidad de filas que deseas para el tablero: ");
 		int rows = reader.nextInt();
 		reader.nextLine();
 
-		System.out.println("Dime la cantidad de columnas que deseas para el tablero: ");
+		System.out.print("\nDime la cantidad de columnas que deseas para el tablero: ");
 		int columns = reader.nextInt();
 		reader.nextLine();
 
-		System.out.println("Dime cuantos toboganes deseas para este juego: ");
+		System.out.print("\nDime cuantos toboganes deseas para este juego: ");
 		int snakes = reader.nextInt();
 		reader.nextLine();
 
-		System.out.println("Dime cuantas escaleras deseas: ");
+		System.out.print("\nDime cuantas escaleras deseas: ");
 		int ladders = reader.nextInt();
 		reader.nextLine();
 
+		System.out.print("\nCuantos jugadores van a haber en el juego: ");
+		int player = reader.nextInt();
+
 		controller.createBoard(rows, columns, snakes, ladders);
-		System.out.println("Cargando jugadores..........");
-		createPlayers(3,0);
+		createPlayers(player,0);
 		controller.printBoard(columns);
+
+		playMenu(0, player);
 	}
 
 	public int playMenu(int player, int numPlayers){
 		if(player>numPlayers-1){
 			player=0;
 		}
-		System.out.println("Jugador,"); //Aqui se pone el +Jugador
-		System.out.print("\nElije una opcion\n"+
+		System.out.print("\nJugador"); 
+		System.out.print("\nElije una opcion:\n"+
 				"1. Tirar dado\n"+
 				"2. Ver escaleras y serpientes\n"+
 				"Opcion: ");
-		int option = reader.nextInt();
-		controller.inGame(option, player);
-		if(option==2){
+		
+		int option2 = reader.nextInt();
+
+		controller.inGame(option2, player);
+		if(option2==2){
 			return playMenu(player, numPlayers);
 		}
 		return playMenu(player+1, numPlayers);
@@ -113,15 +133,16 @@ public class Main {
 
 	public void createPlayers(int players, int counter){
 		if(counter < players){
-			System.out.println("Elige un simbolo que te represente"+(counter+1)+"!#$&@");
+			System.out.print("\nElige un simbolo que te represente jugador "+(counter+1));
+			System.out.print("\nSimbolos Validos: !#$&@");
+			System.out.print("\nOpcion: ");
 			char icon = reader.next().charAt(0);
 			if(controller.createPlayer(icon).equals("Jugador creado")){
 				createPlayers(players, ++counter);
 			}else{
-				System.out.println("Wey no lees, simbolo invalido");
+				System.out.println("\nLo sentimos, has introducido un simbolo invalido o ya otro jugador lo esta usando, intenta nuevamente.");
 				createPlayers(players, counter);
 			}
 		}
 	}
-
 }

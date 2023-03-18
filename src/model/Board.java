@@ -1,8 +1,6 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.Random;
-
 
 
 public class Board {
@@ -26,6 +24,8 @@ public class Board {
     private int LadderPos;
 
     private char Letter;
+
+    private String linkId;
 
 
    private positionListS listS = new positionListS();
@@ -417,4 +417,43 @@ public class Board {
         this.rand = rand;
     }
 
+    public int getLID() {
+        return LID;
+    }
+
+    public void setLID(int lID) {
+        LID = lID;
+    }
+
+    public String getSList() {
+        return SList;
+    }
+
+    public void setSList(String sList) {
+        SList = sList;
+    }
+
+    public int getLadderPos() {
+        return LadderPos;
+    }
+
+    public void setLadderPos(int ladderPos) {
+        LadderPos = ladderPos;
+    }
+
+    public char getLetter() {
+        return Letter;
+    }
+
+    public void setLetter(char letter) {
+        Letter = letter;
+    }
+
+    public String getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(String linkId) {
+        this.linkId = linkId;
+    }
 }

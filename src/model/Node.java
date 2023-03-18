@@ -8,6 +8,7 @@ public class Node{
 	private Node savedNext;
 	private Node next;
 	private Node previous;
+	private int steps;
 
 	public Node(int value) {
 		super();
@@ -40,9 +41,15 @@ public class Node{
 
 	public void setSavedNext(Node savedNext) {this.savedNext = savedNext;}
 
+	public int getSteps() {return steps;}
+
+	public void setSteps(int steps) {this.steps = steps;}
+
 	@Override
 	public String toString(){
 		return "My value is: " + id; 
 	}
+
+	
 
 }
