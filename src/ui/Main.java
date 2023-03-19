@@ -151,8 +151,6 @@ public class Main {
 			System.out.print("\nElige un simbolo que te represente jugador "+(counter+1)+"\nSimbolos Validos: !#$&@");
 			System.out.print("\nOpcion:");
 			reader.nextLine();
-			
-
 			String icon = reader.next();
 			
 			if(controller.createPlayer(icon)==true){
