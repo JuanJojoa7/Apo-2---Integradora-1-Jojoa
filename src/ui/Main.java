@@ -109,23 +109,28 @@ public class Main {
 		createPlayers(player,0);
 		controller.printBoard(columns);
 
-		playMenu(0, player);
+		// playMenu plays the game with the number of players and returns the winner which we save in a variable for
+		// future use
+		Player winner = playMenu(0, player);
+		winner.setScore(600);
+		System.out.println(winner.getName());
+		System.out.println(winner.getScore());
 	}
 
-	public int playMenu(int player, int numPlayers){
-		String icon = "";
+	public Player playMenu(int player, int numPlayers){
+		Player playerData = new Player("","");
 		if(player>numPlayers-1){
 			player=0;
 		}
 		switch(player) {
 			case 0:
-				icon = controller.getPlayer1()+"";
+				playerData = controller.getPlayer1();
 				break;
 			case 1:
-				icon = controller.getPlayer2()+"";
+				playerData = controller.getPlayer2();
 				break;
 			case 2:
-				icon = controller.getPlayer3()+"";
+				playerData = controller.getPlayer3();
 				break;
 		}
 		System.out.print("\nJugador"); 
@@ -136,7 +141,12 @@ public class Main {
 		
 		int option = reader.nextInt();
 
-		controller.inGame(option, player, icon);
+		controller.inGame(option, player, playerData);
+
+		if (controller.checkGameEnd()!=null) {
+			return controller.checkGameEnd();
+		}
+
 		if(option==1){
 			return playMenu(player+1, numPlayers);
 		} else {
@@ -148,24 +158,20 @@ public class Main {
 
 	public void createPlayers(int players, int counter){
 		if(counter < players){
-			System.out.print("\nElige un simbolo que te represente jugador "+(counter+1)+"\nSimbolos Validos: !#$&@");
-			System.out.print("\nOpcion:");
-			reader.nextLine();
+			System.out.print("\nElige un simbolo que te represente jugador "+(counter+1));
+			System.out.print("\nSimbolos Validos: !#$&@");
+			System.out.print("\nOpcion: ");
 			String icon = reader.next();
-			
-			if(controller.createPlayer(icon)==true){
-				
-				System.out.println("true");
+			System.out.print("\nEscribi tu nombre:");
+			String name = reader.next();
+			if(controller.createPlayer(icon, name)==true){
 				switch (counter){
 					case 0:
-						controller.setPlayer1(icon);
-						break;
+						controller.setPlayer1(new Player(icon, name));
 					case 1:
-						controller.setPlayer2(icon);
-						break;
+						controller.setPlayer2(new Player(icon, name));
 					case 2:
-						controller.setPlayer3(icon);
-						break;
+						controller.setPlayer3(new Player(icon, name));
 				}
 				createPlayers(players, ++counter);
 			}else{

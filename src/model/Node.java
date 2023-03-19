@@ -7,11 +7,11 @@ public class Node{
 	private Node next;
 	private Node previous;
 
-	private String player01;
+	private Player player01;
 
-	private String player02;
+	private Player player02;
 
-	private String player03;
+	private Player player03;
 
 	public Node(int value) {
 		super();
@@ -39,28 +39,27 @@ public class Node{
 
 	public void setPrevious(Node previous) {this.previous = previous;}
 
-	public String getPlayer01() {
+	public Player getPlayer01() {
 		return player01;
 	}
 
-	public void setPlayer01(String player01) {
+	public void setPlayer01(Player player01) {
 		this.player01 = player01;
 	}
 
-
-	public String getPlayer02() {
+	public Player getPlayer02() {
 		return player02;
 	}
 
-	public void setPlayer02(String player02) {
+	public void setPlayer02(Player player02) {
 		this.player02 = player02;
 	}
 
-	public String getPlayer03() {
+	public Player getPlayer03() {
 		return player03;
 	}
 
-	public void setPlayer03(String player03) {
+	public void setPlayer03(Player player03) {
 		this.player03 = player03;
 	}
 

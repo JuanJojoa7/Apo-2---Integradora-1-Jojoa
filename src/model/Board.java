@@ -50,13 +50,13 @@ public class Board {
         connectNodes((snakes*2), (ladders*2));
         boardPrint(columnas, 0);
     }
-    public void movePlayer(int steps, String icon){
-        movePlayer(playerBegin(start, icon), steps, icon);
+    public void movePlayer(int steps, Player playerData){
+        movePlayer(playerBegin(start, playerData), steps, playerData);
         boardPrint(sizeX, 0);
         return;
     }
 
-    private void movePlayer(Node current, int steps, String icon){
+    private void movePlayer(Node current, int steps, Player playerData){
         if(current == null){
             return;
         }
@@ -67,71 +67,79 @@ public class Board {
             if(current instanceof Snakes){
                 if(((Snakes) current).getConnect()==null){
                     if(current.getPlayer01()==null){
-                        current.setPlayer01(icon);
+                        current.setPlayer01(playerData);
                     } else if(current.getPlayer02()==null){
-                        current.setPlayer02(icon);
+                        current.setPlayer02(playerData);
                     } else if(current.getPlayer03()==null){
-                        current.setPlayer03(icon);
+                        current.setPlayer03(playerData);
                     }
                 } else {
                     if(((Snakes) current).getConnect().getPlayer01()==null){
-                        ((Snakes) current).getConnect().setPlayer01(icon);
+                        ((Snakes) current).getConnect().setPlayer01(playerData);
                     } else if(((Snakes) current).getConnect().getPlayer02()==null){
-                        ((Snakes) current).getConnect().setPlayer02(icon);
+                        ((Snakes) current).getConnect().setPlayer02(playerData);
                     } else if(((Snakes) current).getConnect().getPlayer03()==null){
-                        ((Snakes) current).getConnect().setPlayer03(icon);
+                        ((Snakes) current).getConnect().setPlayer03(playerData);
                     }
                 }
                 return;
             } else if (current instanceof Ladders){
                 if(((Ladders) current).getConnect()==null){
                     if(current.getPlayer01()==null){
-                        current.setPlayer01(icon);
+                        current.setPlayer01(playerData);
                     } else if(current.getPlayer02()==null){
-                        current.setPlayer02(icon);
+                        current.setPlayer02(playerData);
                     } else if(current.getPlayer03()==null){
-                        current.setPlayer03(icon);
+                        current.setPlayer03(playerData);
                     }
                 } else {
                     if(((Ladders) current).getConnect().getPlayer01()==null){
-                        ((Ladders) current).getConnect().setPlayer01(icon);
+                        ((Ladders) current).getConnect().setPlayer01(playerData);
                     } else if(((Ladders) current).getConnect().getPlayer02()==null){
-                        ((Ladders) current).getConnect().setPlayer02(icon);
+                        ((Ladders) current).getConnect().setPlayer02(playerData);
                     } else if(((Ladders) current).getConnect().getPlayer03()==null){
-                        ((Ladders) current).getConnect().setPlayer03(icon);
+                        ((Ladders) current).getConnect().setPlayer03(playerData);
                     }
                 }
             } else {
                 if(current.getPlayer01()==null){
-                    current.setPlayer01(icon);
+                    current.setPlayer01(playerData);
                 } else if(current.getPlayer02()==null){
-                    current.setPlayer02(icon);
+                    current.setPlayer02(playerData);
                 } else if(current.getPlayer03()==null){
-                    current.setPlayer03(icon);
+                    current.setPlayer03(playerData);
                 }
             }
         } else {
-            movePlayer(current.getNext(), steps-1, icon);
+            movePlayer(current.getNext(), steps-1, playerData);
         }
     }
 
-    private Node playerBegin(Node current, String icon){
+    private Node playerBegin(Node current, Player playerData){
         if(current==null){
-            System.out.println("null");
+            System.out.println(playerData);
             return null;
         }
-        if(icon.equals(current.getPlayer01())){
-            current.setPlayer01("");
-            return current;
-        }else if(icon.equals(current.getPlayer02())){
-            current.setPlayer02("");
-            return current;
-        }else if(icon.equals(current.getPlayer03())){
-            current.setPlayer03("");
-            return current;
-        } else {
-            return playerBegin(current.getNext(), icon);
+        if(current.getPlayer01()!=null) {
+            if (playerData.getIcon().equals(current.getPlayer01().getIcon())) {
+                current.setPlayer01(null);
+                return current;
+            }
         }
+        if(current.getPlayer02()!=null){
+            if(playerData.getIcon().equals(current.getPlayer02().getIcon())){
+                current.setPlayer02(null);
+                return current;
+            }
+        }
+        if(current.getPlayer03()!=null){
+            if(playerData.getIcon().equals(current.getPlayer03().getIcon())){
+                current.setPlayer03(null);
+                return current;
+            }
+        }
+
+        return playerBegin(current.getNext(), playerData);
     }
 
     private void createBoard(int boardLimit, int boardNodeCounter) {
@@ -178,14 +186,12 @@ public class Board {
                 if(int_random == 0 || int_random == 1){
                     createSPosition(snake, positions, counter);
                 } else {
-                    System.out.println(int_random);
                     listS.addLast(new Snakes(int_random));
                     createSPosition(snake, positions, counter+1);
                 }
                 return;
             }else {
                 if(listS.searchNode(int_random)==false){
-                    System.out.println(int_random);
                     listS.addLast(new Snakes(int_random));
                     createSPosition(snake, positions, counter+1);
                 }else{
@@ -212,7 +218,6 @@ public class Board {
                     if(int_random == 0 || int_random == 1){
                         createLPosition(ladder, positions, counter);
                     }else{
-                        System.out.println(int_random);
                         listL.addLast(new Ladders(int_random));
                         createLPosition(ladder, positions, counter+1);
                     }
@@ -315,21 +320,15 @@ public class Board {
 
     private String getSavedString(Node current, String msg){
         if (current != null) {
-            if(current.getPlayer03()==null){
-                if(current.getPlayer02()==null){
-                    if(current.getPlayer01()==null){
-                        return msg;
-                    }
-                    msg += current.getPlayer01();
-                    return msg;
-                }
-                msg += current.getPlayer01();
-                msg += current.getPlayer02();
-                return msg;
+            if(current.getPlayer03()!=null){
+                msg += current.getPlayer03().getIcon();
             }
-            msg += current.getPlayer01();
-            msg += current.getPlayer02();
-            msg += current.getPlayer03();
+            if(current.getPlayer02()!=null){
+                msg += current.getPlayer02().getIcon();
+            }
+            if(current.getPlayer01()!=null){
+                msg += current.getPlayer01().getIcon();
+            }
             return msg;
         }
         return msg;
