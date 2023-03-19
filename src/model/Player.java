@@ -2,12 +2,14 @@ package model;
 public class Player{
 
     private String icon;
+
+    private String name;
     private int score;
 
 
-    public Player(String symbol) {
+    public Player(String symbol, String name) {
         this.icon = symbol;
-
+        this.name = name;
     }
 
     public String getIcon() {
@@ -22,4 +24,11 @@ public class Player{
 
     public void setScore(int score) {this.score = score;}
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

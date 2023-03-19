@@ -9,18 +9,18 @@ public class GameController {
     private Board board;
     boolean finishGame;
 
-    private String player1;
+    private Player player1;
 
-    private String player2;
+    private Player player2;
 
-    private String player3;
+    private Player player3;
 
-    public void inGame(int option, int player, String icon){
+    public void inGame(int option, int player, Player playerData){
 
 		switch(option) {
 
             case 1:
-                board.movePlayer(diceRoll(), icon);
+                board.movePlayer(diceRoll(), playerData);
                 break;
             case 2:
                 board.boardPrint(board.getSizeX(),1);
@@ -30,6 +30,14 @@ public class GameController {
                 break;
 		}
 
+    }
+
+    public Player checkGameEnd(){
+        if(board.getEnd().getPlayer01()!=null){
+            return board.getEnd().getPlayer01();
+        } else {
+            return null;
+        }
     }
 
     public GameController(){
@@ -74,14 +82,14 @@ public class GameController {
 
 
     
-    public boolean createPlayer(String symbol){
+    public boolean createPlayer(String symbol, String name){
         if(symbolPlayer(symbol)==false){
             if(board.getStart().getPlayer01()==null){
-                board.getStart().setPlayer01(symbol);
+                board.getStart().setPlayer01(new Player(symbol, name));
             } else if(board.getStart().getPlayer02()==null){
-                board.getStart().setPlayer02(symbol);
+                board.getStart().setPlayer02(new Player(symbol, name));
             } else if(board.getStart().getPlayer03()==null){
-                board.getStart().setPlayer03(symbol);
+                board.getStart().setPlayer03(new Player(symbol, name));
             }
             return true;
         }else{
@@ -102,50 +110,50 @@ public class GameController {
     }
 
     public boolean symbolPlayer(String symbol){
-        return symbolPlayer(symbol, board.getStart() , 0);
+        return symbolPlayer(symbol, board.getStart());
     }
 
-    public boolean symbolPlayer(String symbol, Node current, int i){
+    public boolean symbolPlayer(String symbol, Node current){
         if(current == null){
             return false;
         }
         if(current.getPlayer01()!=null){
-            if(current.getPlayer01().equals(symbol)){
+            if(current.getPlayer01().getIcon().equals(symbol)){
                 return true;
             }
         }else if (current.getPlayer02()!=null){
-            if (current.getPlayer02().equals(symbol)){
+            if (current.getPlayer02().getIcon().equals(symbol)){
                 return true;
             }
         }else if (current.getPlayer03()!=null){
-            if (current.getPlayer03().equals(symbol)){
+            if (current.getPlayer03().getIcon().equals(symbol)){
                 return true;
             }
         }
         return false;
     }
 
-    public String getPlayer1() {
+    public Player getPlayer1() {
         return player1;
     }
 
-    public void setPlayer1(String player1) {
+    public void setPlayer1(Player player1) {
         this.player1 = player1;
     }
 
-    public String getPlayer2() {
+    public Player getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(String player2) {
+    public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
 
-    public String getPlayer3() {
+    public Player getPlayer3() {
         return player3;
     }
 
-    public void setPlayer3(String player3) {
+    public void setPlayer3(Player player3) {
         this.player3 = player3;
     }
 }
