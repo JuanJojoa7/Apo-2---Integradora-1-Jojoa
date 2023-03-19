@@ -25,7 +25,6 @@ public class Board {
 
     private char Letter;
 
-    private String linkId;
 
 
    private positionListS listS = new positionListS();
@@ -42,13 +41,97 @@ public class Board {
         this.laddersNum = ladders;
         this.LID = 1;
         this.LadderPos=0;
-        this.SList = "abcdefghijklmnopqrstuvwxyz";
         this.start = null;
+        this.end = null;
+        this.SList = "abcdefghijklmnopqrstuvwxyz";
         createSPosition((snakes*2),(columnas*rows), 0);
         createLPosition((ladders*2), (columnas*rows), 0);
         createBoard((columnas*rows), 1);
         connectNodes((snakes*2), (ladders*2));
         boardPrint(columnas, 0);
+    }
+    public void movePlayer(int steps, String icon){
+        movePlayer(playerBegin(start, icon), steps, icon);
+        boardPrint(sizeX, 0);
+        return;
+    }
+
+    private void movePlayer(Node current, int steps, String icon){
+        if(current == null){
+            return;
+        }
+        if(current.getNext()==null){
+            steps = 0;
+        }
+        if(steps == 0){
+            if(current instanceof Snakes){
+                if(((Snakes) current).getConnect()==null){
+                    if(current.getPlayer01()==null){
+                        current.setPlayer01(icon);
+                    } else if(current.getPlayer02()==null){
+                        current.setPlayer02(icon);
+                    } else if(current.getPlayer03()==null){
+                        current.setPlayer03(icon);
+                    }
+                } else {
+                    if(((Snakes) current).getConnect().getPlayer01()==null){
+                        ((Snakes) current).getConnect().setPlayer01(icon);
+                    } else if(((Snakes) current).getConnect().getPlayer02()==null){
+                        ((Snakes) current).getConnect().setPlayer02(icon);
+                    } else if(((Snakes) current).getConnect().getPlayer03()==null){
+                        ((Snakes) current).getConnect().setPlayer03(icon);
+                    }
+                }
+                return;
+            } else if (current instanceof Ladders){
+                if(((Ladders) current).getConnect()==null){
+                    if(current.getPlayer01()==null){
+                        current.setPlayer01(icon);
+                    } else if(current.getPlayer02()==null){
+                        current.setPlayer02(icon);
+                    } else if(current.getPlayer03()==null){
+                        current.setPlayer03(icon);
+                    }
+                } else {
+                    if(((Ladders) current).getConnect().getPlayer01()==null){
+                        ((Ladders) current).getConnect().setPlayer01(icon);
+                    } else if(((Ladders) current).getConnect().getPlayer02()==null){
+                        ((Ladders) current).getConnect().setPlayer02(icon);
+                    } else if(((Ladders) current).getConnect().getPlayer03()==null){
+                        ((Ladders) current).getConnect().setPlayer03(icon);
+                    }
+                }
+            } else {
+                if(current.getPlayer01()==null){
+                    current.setPlayer01(icon);
+                } else if(current.getPlayer02()==null){
+                    current.setPlayer02(icon);
+                } else if(current.getPlayer03()==null){
+                    current.setPlayer03(icon);
+                }
+            }
+        } else {
+            movePlayer(current.getNext(), steps-1, icon);
+        }
+    }
+
+    private Node playerBegin(Node current, String icon){
+        if(current==null){
+            System.out.println("null");
+            return null;
+        }
+        if(icon.equals(current.getPlayer01())){
+            current.setPlayer01("");
+            return current;
+        }else if(icon.equals(current.getPlayer02())){
+            current.setPlayer02("");
+            return current;
+        }else if(icon.equals(current.getPlayer03())){
+            current.setPlayer03("");
+            return current;
+        } else {
+            return playerBegin(current.getNext(), icon);
+        }
     }
 
     private void createBoard(int boardLimit, int boardNodeCounter) {
@@ -70,10 +153,13 @@ public class Board {
 
     private void addNode(Node node){
         if(node instanceof Ladders || node instanceof Snakes || node instanceof Node){
-            if(start==null && end==null){
+            if(start==null){
                 start = node;
+            } else if (end == null){
                 end = node;
-            } else{
+                start.setNext(end);
+                end.setPrevious(start);
+            }else{
                 end.setNext(node);
                 node.setPrevious(end);
                 end = node;
@@ -178,17 +264,14 @@ public class Board {
         }
 
         if(condition==false){
-            String s = "["+current.getId()+getSavedString(current.getSavedNext(), "")+"]";
+            String s = "["+current.getId()+getSavedString(current, "")+"]";
             print = s +" "+print;
         } else {
-            String s = "["+current.getId()+getSavedString(current.getSavedNext(), "")+"]";
+            String s = "["+current.getId()+getSavedString(current, "")+"]";
             print += s+" ";
         }
 
         boardPrint(current.getPrevious(), counter, columns, print, condition);
-        if(current==start){
-            return;
-        }
     }
 
     private void boardPrintSN(Node current, int counter, int columns, String print, boolean condition){
@@ -231,16 +314,25 @@ public class Board {
     }
 
     private String getSavedString(Node current, String msg){
-        if(current==null){
-            return msg;
-        } else {
-            if(current instanceof Player){
-                msg += ((Player) current).getIcon();
-                return getSavedString(current.getSavedNext(), msg);
-            } else {
+        if (current != null) {
+            if(current.getPlayer03()==null){
+                if(current.getPlayer02()==null){
+                    if(current.getPlayer01()==null){
+                        return msg;
+                    }
+                    msg += current.getPlayer01();
+                    return msg;
+                }
+                msg += current.getPlayer01();
+                msg += current.getPlayer02();
                 return msg;
             }
+            msg += current.getPlayer01();
+            msg += current.getPlayer02();
+            msg += current.getPlayer03();
+            return msg;
         }
+        return msg;
     }
 
 
@@ -345,6 +437,7 @@ public class Board {
         return findNodeL2(current.getNext(), ladder, counter);
     }
 
+
     public int getSizeX() {
         return sizeX;
     }
@@ -447,13 +540,5 @@ public class Board {
 
     public void setLetter(char letter) {
         Letter = letter;
-    }
-
-    public String getLinkId() {
-        return linkId;
-    }
-
-    public void setLinkId(String linkId) {
-        this.linkId = linkId;
     }
 }

@@ -4,11 +4,14 @@ public class Node{
 
 	private int id;
     private String display;
-
-	private Node savedNext;
 	private Node next;
 	private Node previous;
-	private int steps;
+
+	private String player01;
+
+	private String player02;
+
+	private String player03;
 
 	public Node(int value) {
 		super();
@@ -16,7 +19,6 @@ public class Node{
         this.display = "[" + value + "]" ;
 		this.next = null;
 		this.previous = null;
-		this.savedNext = null;
 	}
 
 	public String getDisplay() {return display;}
@@ -37,19 +39,35 @@ public class Node{
 
 	public void setPrevious(Node previous) {this.previous = previous;}
 
-	public Node getSavedNext() {return savedNext;}
-
-	public void setSavedNext(Node savedNext) {this.savedNext = savedNext;}
-
-	public int getSteps() {return steps;}
-
-	public void setSteps(int steps) {this.steps = steps;}
-
-	@Override
-	public String toString(){
-		return "My value is: " + id; 
+	public String getPlayer01() {
+		return player01;
 	}
 
-	
+	public void setPlayer01(String player01) {
+		this.player01 = player01;
+	}
 
+
+	public String getPlayer02() {
+		return player02;
+	}
+
+	public void setPlayer02(String player02) {
+		this.player02 = player02;
+	}
+
+	public String getPlayer03() {
+		return player03;
+	}
+
+	public void setPlayer03(String player03) {
+		this.player03 = player03;
+	}
+
+	@Override
+	public String toString() {
+		return "Node{" +
+				"id=" + id +
+				'}';
+	}
 }

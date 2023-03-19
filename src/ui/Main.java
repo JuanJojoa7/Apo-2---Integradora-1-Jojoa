@@ -42,16 +42,16 @@ public class Main {
 				"Opcion: ");  
 	}
 
-		public void executeOption(int option){
+	public void executeOption(int option){
 
-			switch(option){
-				case 1-> init();
+		switch(option){
+			case 1-> init();
 
-				case 0-> System.out.print("\nHasta luego, esperamos verte nuevamente.");
+			case 0-> System.out.print("\nHasta luego, esperamos verte nuevamente.");
 						
-				default-> System.out.print("\nLo sentimos has introducido una opcion invalida, intenta nuevamente.");
-			}
+			default-> System.out.print("\nLo sentimos has introducido una opcion invalida, intenta nuevamente.");
 		}
+	}
 	
 	/**
 	 * @param: Option that gives the user
@@ -113,8 +113,20 @@ public class Main {
 	}
 
 	public int playMenu(int player, int numPlayers){
+		String icon = "";
 		if(player>numPlayers-1){
 			player=0;
+		}
+		switch(player) {
+			case 0:
+				icon = controller.getPlayer1()+"";
+				break;
+			case 1:
+				icon = controller.getPlayer2()+"";
+				break;
+			case 2:
+				icon = controller.getPlayer3()+"";
+				break;
 		}
 		System.out.print("\nJugador"); 
 		System.out.print("\nElije una opcion:\n"+
@@ -124,26 +136,39 @@ public class Main {
 		
 		int option = reader.nextInt();
 
-		if(option == 1){
-			controller.movePlayer(null, option);
+		controller.inGame(option, player, icon);
+		if(option==1){
+			return playMenu(player+1, numPlayers);
+		} else {
+			return playMenu(player, numPlayers);
 		}
 
-		controller.inGame(option, player);
-		if(option==2){
-			return playMenu(player, numPlayers);
-		}else{
-			return playMenu(player+1, numPlayers);
-		}
 		
 	}
 
 	public void createPlayers(int players, int counter){
 		if(counter < players){
-			System.out.print("\nElige un simbolo que te represente jugador "+(counter+1));
-			System.out.print("\nSimbolos Validos: !#$&@");
-			System.out.print("\nOpcion: ");
-			char icon = reader.next().charAt(0);
-			if(controller.createPlayer(icon).equals("Jugador creado")){
+			System.out.print("\nElige un simbolo que te represente jugador "+(counter+1)+"\nSimbolos Validos: !#$&@");
+			System.out.print("\nOpcion:");
+			reader.nextLine();
+			
+
+			String icon = reader.next();
+			
+			if(controller.createPlayer(icon)==true){
+				
+				System.out.println("true");
+				switch (counter){
+					case 0:
+						controller.setPlayer1(icon);
+						break;
+					case 1:
+						controller.setPlayer2(icon);
+						break;
+					case 2:
+						controller.setPlayer3(icon);
+						break;
+				}
 				createPlayers(players, ++counter);
 			}else{
 				System.out.println("\nLo sentimos, has introducido un simbolo invalido o ya otro jugador lo esta usando, intenta nuevamente.");
