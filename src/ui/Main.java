@@ -45,11 +45,76 @@ public class Main {
 	public void executeOption(int option){
 
 		switch(option){
-			case 1-> init();
+			case 1:
 
-			case 0-> System.out.print("\nHasta luego, esperamos verte nuevamente.");
+				System.out.print("\nDigita la cantidad de filas que deseas para el tablero: ");
+				int rows = reader.nextInt();
+				reader.nextLine();
+
+				if(rows == 0){
+					System.out.print("\nLo sentimos, no puedes crear un tablero con 0 filas, intenta nuevamente.");
+
+				}else if(rows > 50){
+					System.out.print("\nLo sentimos, el maximo de filas es 50, intenta nuevamente.");
+
+				}else{
+
+					System.out.print("\nDigita la cantidad de columnas que deseas para el tablero: ");
+					int columns = reader.nextInt();
+					reader.nextLine();
+
+					if(columns == 0){
+						System.out.print("\nLo sentimos, no puedes crear un tablero con 0 columnas, intenta nuevamente.");
+
+					}else if(columns > 50){
+						System.out.print("\nLo sentimos, el maximo de columnas es 50, intenta nuevamente.");
+
+					}else{
+
+						System.out.print("\nDigita cuantos toboganes deseas para este juego: ");
+						int snakes = reader.nextInt();
+						reader.nextLine();
+				
+						System.out.print("\nDigita cuantas escaleras deseas: ");
+						int ladders = reader.nextInt();
+						reader.nextLine();
+				
+						System.out.print("\nCuantos jugadores van a haber en el juego: ");
+						int player = reader.nextInt();
+
+						if(player > 3){
+							System.out.print("\nLo sentimos, el juego tiene un limite de 3 jugadores, intenta nuevamente.");
+
+						}else{
+
+							controller.createBoard(rows, columns, snakes, ladders);
+							createPlayers(player,0);
+							controller.printBoard(columns);
+
+							// playMenu plays the game with the number of players and returns the winner which we save in a variable for
+							// future use
+							Player winner = playMenu(0, player);
+							winner.setScore(600);
+							System.out.println(winner.getName());
+							System.out.println(winner.getScore()); 
+
+						}
+					}
+				}
+		
+				break;
+
+			case 0: 
+
+				System.out.print("\nHasta luego, esperamos verte nuevamente.");
+
+				break;
 						
-			default-> System.out.print("\nLo sentimos has introducido una opcion invalida, intenta nuevamente.");
+			default: 
+
+				System.out.print("\nLo sentimos has introducido una opcion invalida, intenta nuevamente.");
+
+				break;
 		}
 	}
 	
@@ -83,38 +148,6 @@ public class Main {
 		}
 
 		return option; 
-	}
-
-	public void init(){
-		System.out.print("\nDime que la cantidad de filas que deseas para el tablero: ");
-		int rows = reader.nextInt();
-		reader.nextLine();
-
-		System.out.print("\nDime la cantidad de columnas que deseas para el tablero: ");
-		int columns = reader.nextInt();
-		reader.nextLine();
-
-		System.out.print("\nDime cuantos toboganes deseas para este juego: ");
-		int snakes = reader.nextInt();
-		reader.nextLine();
-
-		System.out.print("\nDime cuantas escaleras deseas: ");
-		int ladders = reader.nextInt();
-		reader.nextLine();
-
-		System.out.print("\nCuantos jugadores van a haber en el juego: ");
-		int player = reader.nextInt();
-
-		controller.createBoard(rows, columns, snakes, ladders);
-		createPlayers(player,0);
-		controller.printBoard(columns);
-
-		// playMenu plays the game with the number of players and returns the winner which we save in a variable for
-		// future use
-		Player winner = playMenu(0, player);
-		winner.setScore(600);
-		System.out.println(winner.getName());
-		System.out.println(winner.getScore());
 	}
 
 	public Player playMenu(int player, int numPlayers){
@@ -158,11 +191,11 @@ public class Main {
 
 	public void createPlayers(int players, int counter){
 		if(counter < players){
-			System.out.print("\nElige un simbolo que te represente jugador "+(counter+1));
+			System.out.print("\nElige un simbolo que te represente jugador " +(counter+1));
 			System.out.print("\nSimbolos Validos: !#$&@");
 			System.out.print("\nOpcion: ");
 			String icon = reader.next();
-			System.out.print("\nEscribi tu nombre:");
+			System.out.print("\nDigita tu nombre: ");
 			String name = reader.next();
 			if(controller.createPlayer(icon, name)==true){
 				switch (counter){
