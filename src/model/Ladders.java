@@ -1,6 +1,5 @@
 package model;
 
-import jdk.dynalink.NoSuchDynamicMethodException;
 public class Ladders extends Node{
     private String displaySN;
 
