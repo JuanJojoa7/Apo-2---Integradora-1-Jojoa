@@ -1,10 +1,14 @@
 package model;
-public class Player{
+public class Player {
 
     private String icon;
 
     private String name;
     private int score;
+
+    private Player left;
+
+    private Player right;
 
 
     public Player(String symbol, String name) {
@@ -20,9 +24,13 @@ public class Player{
         this.icon = icon;
     }
 
-    public int getScore() {return score;}
+    public int getScore() {
+        return score;
+    }
 
-    public void setScore(int score) {this.score = score;}
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String getName() {
         return name;
@@ -30,5 +38,21 @@ public class Player{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Player getLeft() {
+        return left;
+    }
+
+    public void setLeft(Player left) {
+        this.left = left;
+    }
+
+    public Player getRight() {
+        return right;
+    }
+
+    public void setRight(Player right) {
+        this.right = right;
     }
 }

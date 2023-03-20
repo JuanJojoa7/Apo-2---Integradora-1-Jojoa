@@ -1,6 +1,7 @@
 package model;
 import java.util.Random;
 public class GameController {
+    public static Ranking ranking = new Ranking();
 
     Random rand = new Random();
     private double seconds;
@@ -131,6 +132,12 @@ public class GameController {
             }
         }
         return false;
+    }
+
+    public void insert(Player player){
+        ranking.insert(player);
+        ranking.inorder();
+        return;
     }
 
     public Player getPlayer1() {
