@@ -13,7 +13,7 @@ public class Main {
         controller = new GameController();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 			Main main = new Main();
 
 			int option = -1; 
@@ -25,7 +25,7 @@ public class Main {
 
 		}
 
-	public int getOptionShowMenu(){
+	public int getOptionShowMenu() throws InterruptedException{
 			int option = 0; 
 			printMenu();
 
@@ -34,11 +34,26 @@ public class Main {
 			return option; 
 	}
 
-	public void printMenu(){
+	public void printMenu() throws InterruptedException{
+
+		String art = """
+			███████╗███╗   ██╗ █████╗ ██╗  ██╗███████╗     █████╗ ███╗   ██╗██████╗     ██╗      █████╗ ██████╗ ██████╗ ███████╗██████╗ ███████╗
+			██╔════╝████╗  ██║██╔══██╗██║ ██╔╝██╔════╝    ██╔══██╗████╗  ██║██╔══██╗    ██║     ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔════╝
+			███████╗██╔██╗ ██║███████║█████╔╝ █████╗      ███████║██╔██╗ ██║██║  ██║    ██║     ███████║██║  ██║██║  ██║█████╗  ██████╔╝███████╗
+			╚════██║██║╚██╗██║██╔══██║██╔═██╗ ██╔══╝      ██╔══██║██║╚██╗██║██║  ██║    ██║     ██╔══██║██║  ██║██║  ██║██╔══╝  ██╔══██╗╚════██║
+			███████║██║ ╚████║██║  ██║██║  ██╗███████╗    ██║  ██║██║ ╚████║██████╔╝    ███████╗██║  ██║██████╔╝██████╔╝███████╗██║  ██║███████║
+			╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝     ╚══════╝╚═╝  ╚═╝╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝																																																	   
+				""";
+
+			for(int i = 0; i < art.length(); i++){
+				System.out.print(art.charAt(i));
+				Thread.sleep(1);
+			}	
+
 			System.out.print(
-                "\n<<<<< Welcome to the Game >>>>>\n"+	
+                "\n<<<<<Bienvenido al juego de serpientes y escaleras >>>>>\n"+	
                 "1. Jugar\n"+
-				"0. Exit. \n"+
+				"0. Salir. \n"+
 				"Opcion: ");  
 	}
 
@@ -52,10 +67,10 @@ public class Main {
 				reader.nextLine();
 
 				if(rows == 0){
-					System.out.print("\nLo sentimos, no puedes crear un tablero con 0 filas, intenta nuevamente.");
+					System.out.println("\nLo sentimos, no puedes crear un tablero con 0 filas, intenta nuevamente.\n");
 
 				}else if(rows > 50){
-					System.out.print("\nLo sentimos, el maximo de filas es 50, intenta nuevamente.");
+					System.out.println("\nLo sentimos, el maximo de filas es 50, intenta nuevamente.\n");
 
 				}else{
 
@@ -64,10 +79,10 @@ public class Main {
 					reader.nextLine();
 
 					if(columns == 0){
-						System.out.print("\nLo sentimos, no puedes crear un tablero con 0 columnas, intenta nuevamente.");
+						System.out.println("\nLo sentimos, no puedes crear un tablero con 0 columnas, intenta nuevamente.\n");
 
 					}else if(columns > 50){
-						System.out.print("\nLo sentimos, el maximo de columnas es 50, intenta nuevamente.");
+						System.out.println("\nLo sentimos, el maximo de columnas es 50, intenta nuevamente.\n");
 
 					}else{
 
@@ -83,7 +98,7 @@ public class Main {
 						int player = reader.nextInt();
 
 						if(player > 3){
-							System.out.print("\nLo sentimos, el juego tiene un limite de 3 jugadores, intenta nuevamente.");
+							System.out.println("\nLo sentimos, el juego tiene un limite de 3 jugadores, intenta nuevamente.\n");
 
 						}else{
 
@@ -164,7 +179,7 @@ public class Main {
 				playerData = controller.getPlayer3();
 				break;
 		}
-		System.out.print("\nJugador"); 
+		System.out.print("\nJugador, elije alguna de las siguientes opciones: "); 
 		System.out.print("\nElije una opcion:\n"+
 				"1. Tirar dado\n"+
 				"2. Ver escaleras y serpientes\n"+

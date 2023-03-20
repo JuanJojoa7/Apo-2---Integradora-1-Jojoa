@@ -103,7 +103,8 @@ public class GameController {
         int upperbound = 6;
         int int_random = rand.nextInt(upperbound);
         if(int_random!=0){
-            System.out.println(int_random);
+            System.out.println("\nSacaste: "+ int_random);
+            System.out.println();
             return int_random;
         } else {
             return diceRoll();
