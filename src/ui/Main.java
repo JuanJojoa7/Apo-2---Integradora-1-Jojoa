@@ -96,7 +96,6 @@ public class Main {
 							Player winner = playMenu(0, player);
 							winner.setScore(600);
 							controller.insert(winner);
-
 						}
 					}
 				}
