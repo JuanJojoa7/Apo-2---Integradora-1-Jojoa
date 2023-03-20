@@ -47,7 +47,6 @@ public class Main {
 
 			for(int i = 0; i < art.length(); i++){
 				System.out.print(art.charAt(i));
-				Thread.sleep(1);
 			}	
 
 			System.out.print(
