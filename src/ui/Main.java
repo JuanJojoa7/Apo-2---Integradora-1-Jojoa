@@ -1,11 +1,13 @@
 package ui;
 import java.util.Scanner;
 import model.*;
+import java.time.LocalTime;
 
 
 public class Main {
     private Scanner reader;
 	private GameController controller;
+	
 	
 
 	public Main() {
@@ -104,11 +106,14 @@ public class Main {
 							controller.createBoard(rows, columns, snakes, ladders);
 							createPlayers(player,0);
 							controller.printBoard(columns);
+							controller.Timer();
+							LocalTime horaActual = LocalTime.now();
+
 
 							// playMenu plays the game with the number of players and returns the winner which we save in a variable for
 							// future use
 							Player winner = playMenu(0, player);
-							winner.setScore(600);
+							winner.setScore(controller.calculateScore());
 							controller.insert(winner);
 						}
 					}

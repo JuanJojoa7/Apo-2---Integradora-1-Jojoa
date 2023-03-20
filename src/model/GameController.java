@@ -1,5 +1,6 @@
 package model;
 import java.util.Random;
+
 public class GameController {
     public static Ranking ranking = new Ranking();
 
@@ -9,6 +10,7 @@ public class GameController {
     private Thread timer;
     private Board board;
     boolean finishGame;
+    
 
     private Player player1;
 
@@ -72,15 +74,16 @@ public class GameController {
         timer.start();
     }
 
+    public double calculateScore(){
+
+        double calculation = Math.floor((600-seconds)/6);
+        return calculation ;
+    }
+
     public void stopTimer(){
         starter = false;
         timer.interrupt();
     }
-
-    public boolean gameFinish(){
-        return finishGame;
-    }
-
 
     
     public boolean createPlayer(String symbol, String name){

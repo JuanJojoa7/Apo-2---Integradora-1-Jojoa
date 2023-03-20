@@ -4,7 +4,7 @@ public class Player {
     private String icon;
 
     private String name;
-    private int score;
+    private double score;
 
     private Player left;
 
@@ -24,11 +24,11 @@ public class Player {
         this.icon = icon;
     }
 
-    public int getScore() {
+    public double getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(double score) {
         this.score = score;
     }
 
