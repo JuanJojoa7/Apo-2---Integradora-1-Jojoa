@@ -38,7 +38,7 @@ public class GameController {
     public Player checkGameEnd(){
         if(board.getEnd().getPlayer01()!=null){
             return board.getEnd().getPlayer01();
-        } else {
+        } else  {
             return null;
         }
     }
@@ -65,7 +65,7 @@ public class GameController {
             while(starter){
                 try{
                     Thread.sleep(10);
-                    seconds=-0.010;
+                    seconds=0.10;
                 }catch (InterruptedException e){
                     Thread.currentThread().interrupt();
                 }
@@ -76,7 +76,7 @@ public class GameController {
 
     public double calculateScore(){
 
-        double calculation = Math.floor((600-seconds)/6);
+        double calculation = (600-seconds)/6;
         return calculation ;
     }
 

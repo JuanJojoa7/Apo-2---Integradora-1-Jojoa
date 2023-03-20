@@ -114,6 +114,7 @@ public class Main {
 							// future use
 							Player winner = playMenu(0, player);
 							winner.setScore(controller.calculateScore());
+							controller.stopTimer();
 							controller.insert(winner);
 						}
 					}
