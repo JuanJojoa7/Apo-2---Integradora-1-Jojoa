@@ -45,8 +45,8 @@ public class Ranking {
         if (node != null) {
             if(counter<6){
                 inorder(node.getRight(), counter);
-                System.out.print(counter + ". " + node.getName() + ": " + node.getScore());
                 System.out.println("");
+                System.out.println("Ranking: "+ counter + ". " + node.getName() + ": " + node.getScore());
                 counter++;
                 inorder(node.getLeft(), counter);
             }else{
