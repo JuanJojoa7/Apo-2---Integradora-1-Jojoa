@@ -18,7 +18,7 @@ public class Ranking {
         root = null;
     }
     
-    public void insert(int key) {
+    public void insert(int key) { 
         root = insert(root, key);
     }
     
@@ -61,11 +61,30 @@ public class Ranking {
         inorder(root);
     }
     
-    private void inorder(Node node) {
+    private void inorder(Node node, int counter) {
         if (node != null) {
-            inorder(node.left);
-            System.out.print(node.key + " ");
             inorder(node.right);
+            System.out.print(counter + Player.getName + ": " + Player.getScore);
+            counter++;
+            inorder(node.left);
         }
     }
+        public Node getMax(){
+        return getMax(root);
+    }
+
+    public Node getMax(Node current){
+        if(current==null){
+            return null;
+        }
+        if(current.getRight()==null){
+            return current;
+        } else {
+            getMax(current.getRight());
+        }
+        return null;
+    }
+
+
+    
 }
