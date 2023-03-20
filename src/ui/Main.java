@@ -95,9 +95,7 @@ public class Main {
 							// future use
 							Player winner = playMenu(0, player);
 							winner.setScore(600);
-							System.out.println(winner.getName());
-							System.out.println(winner.getScore()); 
-
+							controller.insert(winner);
 						}
 					}
 				}
